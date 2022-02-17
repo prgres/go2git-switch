@@ -2,6 +2,7 @@
 
 ## Example
 `go run . -c _docs/example.yaml`
+
 ![alt text](./_docs/usage_example.png)
 
 ## Usage
