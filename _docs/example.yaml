@@ -1,0 +1,6 @@
+profiles:
+- label: Profile1
+  name: Profile1
+  email: profile1@example.com
+- name: profile2
+  email: example@profle.com
