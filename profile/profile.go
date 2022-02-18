@@ -40,8 +40,8 @@ func GetProfileActive(target string) (*Profile, error) {
 	}
 
 	return &Profile{
-		Name:  string(nameByte),
-		Email: string(emailByte),
+		Name:  strings.TrimSpace(string(nameByte)),
+		Email: strings.TrimSpace(string(emailByte)),
 	}, nil
 }
 

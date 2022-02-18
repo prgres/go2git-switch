@@ -14,6 +14,11 @@ func ProfileSelect(c *cli.Context) error {
 		return err
 	}
 
+	if len(profileList) == 0 {
+		fmt.Println("No profiles found.")
+		return ProfileAdd(c)
+	}
+
 	if err := profileSelect(c.String("target"), profileList); err != nil {
 		return err
 	}
@@ -47,6 +52,20 @@ func ProfileRemove(c *cli.Context) error {
 	return ProfileRemove(c)
 }
 
+func ProfileEdit(c *cli.Context) error {
+	profileList, err := getProfiles()
+	if err != nil {
+		return err
+	}
+
+	if err := profileEdit(profileList); err != nil {
+		return err
+	}
+
+	return ProfileSelect(c)
+	// return ProfileRemove(c)
+}
+
 func ProfileCurrent(c *cli.Context) error {
 	target := c.String("target")
 	activeProfile, err := profile.GetProfileActive(target)
@@ -54,7 +73,7 @@ func ProfileCurrent(c *cli.Context) error {
 		return err
 	}
 
-	fmt.Printf(">>> Active git profile in \"--%s\":\n\tNAME: %s\tEMAIL: %s", target, activeProfile.Name, activeProfile.Email)
+	fmt.Printf(">>> Active git profile in \"--%s\": \tNAME: %s\tEMAIL: %s\n", target, activeProfile.Name, activeProfile.Email)
 	return nil
 }
 
