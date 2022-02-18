@@ -14,7 +14,7 @@ func main() {
 	app := &cli.App{
 		EnableBashCompletion: true,
 		Name:                 "go2git-switch",
-		Usage:                "TBD",
+		Usage:                "little helper to easily between git profiles",
 		Compiled:             time.Now(),
 		Flags:                app.Flags(),
 		Authors: []*cli.Author{
@@ -31,23 +31,30 @@ func main() {
 		Commands: []*cli.Command{
 			{
 				Name:   "add",
-				Usage:  "TBD",
+				Usage:  "add a new profile to configfile",
 				Before: app.ConfigReload,
-				After:  app.CofnigSave,
+				After:  app.ConfigSave,
 				Action: app.ProfileAdd,
 			},
 			{
-
+				Name:    "edit",
+				Usage:   "edit existing profile",
+				Aliases: []string{"e"},
+				Before:  app.ConfigReload,
+				After:   app.ConfigSave,
+				Action:  app.ProfileEdit,
+			},
+			{
 				Name:    "remove",
 				Aliases: []string{"rm"},
-				Usage:   "TBD",
+				Usage:   "list all profiles and select one to remove from configfile",
 				Before:  app.ConfigReload,
-				After:   app.CofnigSave,
+				After:   app.ConfigSave,
 				Action:  app.ProfileRemove,
 			},
 			{
 				Name:   "current",
-				Usage:  "TBD",
+				Usage:  "show current git profile",
 				Before: app.ConfigReload,
 				Action: app.ProfileCurrent,
 			},
