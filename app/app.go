@@ -116,6 +116,11 @@ func handleCurrent(c *cli.Context) error {
 	target := c.String("target")
 	profileCurrent, err := profile.GetProfileActive(target)
 	if err != nil {
+		// FIX: when no user.name or user.email not found in gitconfig git cmd failed with `exit status 1`
+		if err.Error() == "exit status 1" {
+			return nil
+		}
+
 		return err
 	}
 
